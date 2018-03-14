@@ -1,0 +1,11 @@
+package:
+  name: fermitools-data
+  version: "0.16"
+
+source:
+  git_url: https://github.com/fermi-lat/fermitools-data.git
+
+requirements:
+  build:
+    noarch: generic
+  run:
