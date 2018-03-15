@@ -1,11 +1,12 @@
+{% set name = "fermitools-data" %}
+{% set version = "0.16" %}
+
 package:
-  name: fermitools-data
-  version: "0.16"
+  name: {{ name|lower }}
+  version: {{ version }}
 
 source:
   git_url: https://github.com/fermi-lat/fermitools-data.git
 
-requirements:
-  build:
-    noarch: generic
-  run:
+build:
+  noarch: generic
