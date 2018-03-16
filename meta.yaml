@@ -15,5 +15,3 @@ build:
 requirements:
   build:
     - git-lfs
-  run:
-    - git-lfs
