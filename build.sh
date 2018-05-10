@@ -11,6 +11,6 @@ cp -R fermitools-data/{counterpartCatalogs,galdiffuse,jplephem,pass8Analysis}  $
 # Populate the outref files with additional reference files
 for i in "${tooldirs[@]}"
 do
-mkdir -p $PREFIX/share/$condaname}/data/$i/outref
-cp -n outrefFiles/$i/* $PREFIX/share/$condaname}/data/$i/outref/
+mkdir -p $PREFIX/share/${condaname}/data/$i/outref
+cp -n outrefFiles/$i/* $PREFIX/share/${condaname}/data/$i/outref/
 done
