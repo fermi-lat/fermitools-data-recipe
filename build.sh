@@ -2,7 +2,7 @@ export condaname="fermitools"
 
 git clone https://github.com/fermi-lat/fermitools-data.git
 
-tooldirs = ($(ls -d outrefFiles/*))
+tooldirs=($(ls -d outrefFiles/*))
 
 # Move the files into the Fermitools extFiles directory
 mkdir -p $PREFIX/share/${condaname}/refdata/fermi
