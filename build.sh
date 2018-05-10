@@ -12,5 +12,5 @@ cp -R fermitools-data/{counterpartCatalogs,galdiffuse,jplephem,pass8Analysis}  $
 for i in "${tooldirs[@]}"
 do
 mkdir -p $PREFIX/share/${condaname}/data/$i/outref
-cp -n outrefFiles/$i/* $PREFIX/share/${condaname}/data/$i/outref/
+cp -n $i/* $PREFIX/share/${condaname}/data/$i/outref/
 done
