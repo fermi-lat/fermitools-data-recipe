@@ -2,7 +2,7 @@ export condaname="fermitools"
 
 git clone https://github.com/fermi-lat/fermitools-data.git
 
-tooldirs=($(ls -d fermitools-data/outrefFiles/*))
+tooldirs=($(ls -d fermitools-data/outrefFiles/* | sed "s/fermitools-data\/outrefFiles\///g"))
 
 # Move the files into the Fermitools extFiles directory
 mkdir -p $PREFIX/share/${condaname}/refdata/fermi
@@ -12,5 +12,5 @@ cp -R fermitools-data/{counterpartCatalogs,galdiffuse,jplephem,pass8Analysis}  $
 for i in "${tooldirs[@]}"
 do
 mkdir -p $PREFIX/share/${condaname}/data/$i/outref
-cp -n $i/* $PREFIX/share/${condaname}/data/$i/outref/
+cp -n fermitools-data/outrefFiles/$i/* $PREFIX/share/${condaname}/data/$i/outref/
 done
