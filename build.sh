@@ -1,6 +1,6 @@
 export condaname="fermitools"
 
-git clone https://github.com/fermi-lat/fermitools-data.git
+git-lfs clone https://github.com/fermi-lat/fermitools-data.git
 
 tooldirs=($(ls -d fermitools-data/outrefFiles/* | sed "s/fermitools-data\/outrefFiles\///g"))
 
@@ -11,6 +11,7 @@ cp -R fermitools-data/{counterpartCatalogs,galdiffuse,jplephem,pass8Analysis}  $
 # Populate the outref files with additional reference files
 for i in "${tooldirs[@]}"
 do
+echo "Populating outref file ${i}...\n"    
 mkdir -p $PREFIX/share/${condaname}/data/$i/outref
 cp -R -n fermitools-data/outrefFiles/$i/* $PREFIX/share/${condaname}/data/$i/outref/
 done
