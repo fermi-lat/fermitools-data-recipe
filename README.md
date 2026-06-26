@@ -6,3 +6,9 @@ This recipe is used for the building of the fermitools external data files tarba
 conda install -c fermi_dev_externals fermitools-data
 
 The files will be installed into the ${CONDA_PREFIX}/share/fermitools/data/extFiles directory
+
+To invoke the build process, use the command 
+
+conda build --package-format=1 .
+
+In order to ensure that the generated package uses the .tar.bz format instead of .conda
