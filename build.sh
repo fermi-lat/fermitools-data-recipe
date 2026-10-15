@@ -1,6 +1,8 @@
 export condaname="fermitools"
 
-git-lfs clone https://github.com/fermi-lat/fermitools-data.git
+git clone https://github.com/fermi-lat/fermitools-data.git
+wget https://fermi.gsfc.nasa.gov/ssc/data/analysis/software/aux/4fgl/gll_iem_v07.fits
+mv gll_iem_v07.fits fermitools-data/galdiffuse/
 
 tooldirs=($(ls -d fermitools-data/outrefFiles/* | sed "s/fermitools-data\/outrefFiles\///g"))
 
