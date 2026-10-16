@@ -1,5 +1,5 @@
 {% set name = "fermitools-data" %}
-{% set version = "0.20" %}
+{% set version = "0.21" %}
 
 package:
   name: {{ name|lower }}
@@ -8,7 +8,3 @@ package:
 build:
   number: 0
   noarch: generic
-
-requirements:
-  build:
-    - git-lfs
