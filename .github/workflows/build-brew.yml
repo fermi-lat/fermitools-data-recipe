@@ -1,0 +1,55 @@
+name: Build Homebrew package
+
+on:
+  push:
+    paths:
+      - "brew/**"
+      - "meta.yaml"
+      - ".github/workflows/build-brew.yml"
+  pull_request:
+    paths:
+      - "brew/**"
+      - "meta.yaml"
+      - ".github/workflows/build-brew.yml"
+  workflow_dispatch:
+
+jobs:
+  build-brew:
+    runs-on: macos-15
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Check recipe and formula versions
+        run: |
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+
+          metadata = Path("meta.yaml").read_text()
+          formula = Path("brew/fermitools-data.rb").read_text()
+          meta_version = re.search(r'(?m)^\{%\s*set\s+version\s*=\s*"([^"]+)"\s*%\}', metadata)
+          formula_version = re.search(r'(?m)^\s*version\s+"([^"]+)"\s*$', formula)
+          if not meta_version or not formula_version:
+              raise SystemExit("Could not find version in meta.yaml or the Homebrew formula")
+          if meta_version.group(1) != formula_version.group(1):
+              raise SystemExit(
+                  f"Version mismatch: meta.yaml={meta_version.group(1)}, "
+                  f"formula={formula_version.group(1)}"
+              )
+          print(f"Conda and Homebrew versions match: {meta_version.group(1)}")
+          PY
+
+      - name: Check formula style
+        run: brew style brew/fermitools-data.rb
+
+      - name: Stage formula in a local tap
+        run: |
+          brew tap-new --no-git fermi-lat/fermitools-data-ci
+          cp brew/fermitools-data.rb "$(brew --repo fermi-lat/fermitools-data-ci)/Formula/fermitools-data.rb"
+
+      - name: Install formula from source
+        run: brew install --build-from-source fermi-lat/fermitools-data-ci/fermitools-data
+
+      - name: Test installed formula
+        run: brew test fermi-lat/fermitools-data-ci/fermitools-data
